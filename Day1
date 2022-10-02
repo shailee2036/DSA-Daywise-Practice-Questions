@@ -1,0 +1,148 @@
+Q1:
+Buy and sell stock once-
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+
+Approach 1:
+
+class Solution {
+    public int maxProfit(int[] prices) 
+    {
+        //approach 1
+        int minprice = Integer.MAX_VALUE;
+        int maxprofit = 0;
+        for (int i = 0; i < prices.length; i++) {
+            if (prices[i] < minprice)
+                minprice = prices[i];
+            else if (prices[i] - minprice > maxprofit)
+                maxprofit = prices[i] - minprice;
+        }
+        return maxprofit;
+    }
+}
+
+Approach 2:
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int mp=0,ms=0;
+        for(int i=prices.length-1;i>=0;i--)
+        {
+            ms=Math.max(ms,prices[i]);
+            mp=Math.max(mp,ms-prices[i]);
+        }
+        return mp;
+    }
+}
+
+Q2:
+Maximum Product of three numbers-
+https://leetcode.com/problems/maximum-product-of-three-numbers/
+
+Approach:
+class Solution {
+    public int maximumProduct(int[] nums) 
+    {
+        int n =nums.length;
+        int mx[]=new int[3];
+        mx[0]=-1001;
+        mx[1]=-1001;
+        mx[2]=-1001;
+       
+        int mn[]=new int[2];
+        mn[0]=1001;
+        mn[1]=1001;
+        int fir,sec;
+        
+        for(int i=0;i<n;i++)
+        {
+            
+            //maximum
+            if(nums[i]>=mx[0])
+            {
+                fir=mx[0];
+                sec=mx[1];
+                
+                //swapping
+                mx[0]=nums[i];
+                mx[1]=fir;
+                mx[2]=sec;
+            }
+            else if(nums[i]>=mx[1])
+            {
+                fir=mx[1];
+                mx[1]=nums[i];
+                mx[2]=fir;
+            }
+            else if(nums[i]>=mx[2])
+            {
+                mx[2]=nums[i];
+            }
+            
+            //minimum
+            if(nums[i]<=mn[0])
+            {
+                fir=mn[0];
+                mn[0]=nums[i];
+                mn[1]=fir;
+            }
+            else if(nums[i]<mn[1])
+            {
+                mn[1]=nums[i];
+            }
+        }
+        
+        
+        return (int)Math.max(mn[0]*mn[1]*mx[0],mx[1]*mx[2]*mx[0]);
+        
+    }
+}
+
+Q3:
+Plus one-
+https://leetcode.com/problems/plus-one/
+
+Approach :
+
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        short i=0;
+        bool carry=0;
+        for(i=digits.size()-1;i>=0;--i)
+        {
+            if(digits[i]<=8)
+            {
+                digits[i]++;
+                carry=0;
+                break;
+            }
+            else{
+                digits[i]=0;
+                carry=1;
+            }
+        }
+        
+        if(carry) digits.insert(digits.begin(),1);
+        return digits;
+    }
+};
+
+Q4:
+Maximum Subarray-
+https://leetcode.com/problems/maximum-subarray/
+
+Approach:
+
+class Solution {
+    public int maxSubArray(int[] nums) {
+        //approach 2
+        int pres=0,cs,ans=nums[0];
+        for(int i=0;i<nums.length;i++)    
+        {
+            cs=pres+nums[i];
+            ans=Math.max(ans,cs);
+            pres=Math.max(cs,0);
+        }
+        return ans;
+    }
+}
