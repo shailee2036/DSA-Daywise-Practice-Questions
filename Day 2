@@ -133,6 +133,28 @@ Pick from both sides-
 https://www.interviewbit.com/problems/pick-from-both-sides/
 
 Approach:
+public class Solution {
+    public int solve(int[] A, int B) {
+        int len=a.length;
+        int sum=0;
+        for(int i=0;i<B;i++)
+        {
+            sm=sm+A[i];
+        }
+        int ans=sm;
+        int p1=len-1;
+        int p2=B-1;
+        while(p2>=0)
+        {
+            sm=sm+A[p1]-A[p2];
+            ans=max(ans,sm);
+            p2--;
+            p1--;
+        }
+        return ans;
+    }
+    
+}
 
 Q5:
 Chocolate Distribution Problem-
@@ -140,4 +162,10 @@ https://practice.geeksforgeeks.org/problems/chocolate-distribution-
 problem3825/1
 
 Approach:
-
+  Collections.sort(a);
+        long ans=a[m-1]-a[0];
+        for(int i=m-1;i<n;i++)
+        {
+            ans=Math.min(ans,a[i]-a[i-m+1]);
+        }
+        return ans;
