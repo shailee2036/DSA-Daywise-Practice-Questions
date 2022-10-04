@@ -1,0 +1,129 @@
+Q1:
+Third maximum number-
+https://leetcode.com/problems/third-maximum-number/
+
+Approach:
+
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        //keeping track of numbers
+        int n =nums.size();
+        int fir,sec;
+        int mx[3]={INT_MIN,INT_MIN,INT_MIN};
+        int cnt=0;
+        bool flag=1;
+        for(int i=0;i<n;i++)
+        {
+            if(nums[i]==mx[0] || nums[i]==mx[1] || nums[i]==mx[2])
+            {
+                if(nums[i]==INT_MIN && flag)
+                {
+                    flag=0;cnt++;
+                }
+                continue;
+            }
+            
+            if(nums[i]>mx[0])
+            {
+                cnt++;
+                fir=mx[0];
+                sec=mx[1];
+                mx[0]=nums[i];
+                mx[1]=fir;
+                mx[2]=sec;
+            }
+            else if(nums[i]>mx[1])
+            {
+                cnt++;
+                fir=mx[1];
+                mx[1]=nums[i];
+                mx[2]=fir;
+            }
+            else if(nums[i]>mx[2])
+            {
+                cnt++;
+                mx[2]=nums[i];
+            }
+        }
+        if(cnt<=2)
+            return mx[0];
+        else
+            return mx[2];
+    }
+};
+
+Q2:
+Sort 0,1,2 array-
+https://leetcode.com/problems/sort-colors/
+
+Approach:
+
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int first=0;
+        int last =nums.size()-1;
+        int mid=0;
+        while(mid<=last)
+        {
+            switch(nums[mid])
+            {
+                case 0:
+                    swap(nums[first++],nums[mid++]);
+                    break;
+                case 1:
+                    mid++;
+                    break;
+                case 2:
+                    swap(nums[mid],nums[last--]);
+                    break;
+                    
+            }
+        }
+    }
+};
+
+Q3:
+Merge sorted arrays-
+https://leetcode.com/problems/merge-sorted-array/
+
+Approach:
+
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int first=m-1;
+        int second=n-1;
+        int index=m+n-1;
+        
+        while(first>-1 && second>-1)
+        {
+            if(nums1[first]>=nums2[second])
+            {
+                nums1[index]=nums1[first];
+                index--;
+                first--;
+            }
+            else
+            {
+                nums1[index]=nums2[second];
+                index--;
+                second--;
+            }
+        }
+        
+        while(first>-1)
+        {
+            nums1[index]=nums1[first];
+                index--;
+                first--;
+        }
+        
+        while(second>-1)
+        {
+             nums1[index]=nums2[second];
+                index--;
+                second--;
+        }
+    }
+}
